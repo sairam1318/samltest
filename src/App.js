@@ -1,9 +1,15 @@
+import { render } from '@testing-library/react';
 import { useEffect, useState } from 'react';
-
+import './App.css';
 
 function App() {
-   
-    const [resp, setResp] = useState([]);
+
+    const [resp, setResp] = useState({
+        "entityID": null,
+        "certificate" : null,
+        "acsUrls": null,
+        "singleLogoutUrl": null
+    });
     const [data, setData] = useState();
     useEffect( ()=> {
       console.log(resp)
@@ -17,10 +23,10 @@ function App() {
       })
       .then(res => res.json())
       .then(json => setResp({
-        "entityID": json.entityID,
-        "certificate" : json.certificate,
-        "acsUrl": json.ACSurl,
-        "singleLogoutUrl": json.SingleLogouturl
+        "entityID": json.entityId,
+        "certificates" : json.certificate,
+        "acsUrls": json.acsUrls,
+        "singleLogoutUrl": json.singleLogoutService
       }))
       
     }
@@ -39,10 +45,16 @@ function App() {
       <div>
           <button onClick={(e)=>{handleSubmission(e)}}>Submit</button>
       </div>
-      <div><h3>Entity ID :</h3> <br/>{resp.entityID}</div>
-      <div><h3>Single logout url: </h3><br/>{ resp.singleLogoutUrl}</div>
-      <div><h3>ACS url: </h3><br/>{resp.acsUrl}</div>
-      <div><h3>certificate: </h3><br/>{resp.certificate}</div>
+      <div>{resp.entityID != null ? <div>Entity ID: {resp.entityID}</div>: null }</div>
+      <div>{resp.singleLogoutUrl != null ? resp.singleLogoutUrl.map((url)=>{
+        return <p>Single Logout Url: {url.Url} Single logout Binding : {url.Binding}</p>
+      }): null}</div>
+      <div>{resp.acsUrls != null ? resp.acsUrls.map(acsUrl => {
+        return <p>Acs url: {acsUrl.url} Acs url binding: {acsUrl.binding}</p>
+      }): null}</div>
+      <div className="certificate">{resp.certificates != null ? resp.certificates.map((cert) => {
+        return <p>Certificate: {cert.content }<br></br> </p>
+      }): null}</div>
     </div>
   );
 }
