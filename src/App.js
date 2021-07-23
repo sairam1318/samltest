@@ -45,15 +45,15 @@ function App() {
       <div>
           <button onClick={(e)=>{handleSubmission(e)}}>Submit</button>
       </div>
-      <div>{resp.entityID != null ? <div>Entity ID: {resp.entityID}</div>: null }</div>
+      <div>{resp.entityID != null ? <div>Entity ID: <p><b>{resp.entityID}</b></p></div>: null }</div>
       <div>{resp.singleLogoutUrl != null ? resp.singleLogoutUrl.map((url)=>{
-        return <p>Single Logout Url: {url.Url} Single logout Binding : {url.Binding}</p>
+        return <p>Single Logout Url: <b>{url.Url}</b> Single logout Binding : <b>{url.Binding}</b></p>
       }): null}</div>
       <div>{resp.acsUrls != null ? resp.acsUrls.map(acsUrl => {
-        return <p>Acs url: {acsUrl.url} Acs url binding: {acsUrl.binding}</p>
+        return <p>Acs url: <b>{acsUrl.url}</b> Acs url binding: <b>{acsUrl.binding}</b></p>
       }): null}</div>
       <div className="certificate">{resp.certificates != null ? resp.certificates.map((cert) => {
-        return <p>Certificate: {cert.content }<br></br> </p>
+        return <p>Certificate: <br/> {cert.content}</p>
       }): null}</div>
     </div>
   );

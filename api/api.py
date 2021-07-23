@@ -1,7 +1,5 @@
-from datetime import time
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
-import time
 import xml.etree.ElementTree as ET
 
 app = Flask(__name__)
@@ -12,10 +10,10 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 @cross_origin()
 def saml_parser():
     if request.method == 'POST':
-        data = request.get_data()
-        root = ET.fromstring(data)
+        request_body = request.get_data()
+        root = ET.fromstring(request_body)
         acsURls = []
-        index = 1
+        acs_urls_index = 1
         certificate_index = 1
         certificates = []
         entityID = None
@@ -29,10 +27,12 @@ def saml_parser():
             splitdata = ""
             if child.tag.__contains__("X509Certificate"):
                 certificate_data = child.text;
+                trim_whitespace = certificate_data.strip();
+                print(trim_whitespace);
                 counter = 0
                 data = "";
                 while(counter <= len(certificate_data)):
-                    data = data + certificate_data[counter: counter + 64] + "\n"
+                    data = data + trim_whitespace[counter: counter + 64] + "\n"
                     counter = counter + 64
 
                 certificates.append({
@@ -46,11 +46,11 @@ def saml_parser():
             elif child.tag.__contains__("AssertionConsumerService"):
 
                 acsURls.append({
-                    "index": index,
+                    "index": acs_urls_index,
                     "url": child.attrib['Location'],
                     "binding": child.attrib['Binding']
                 })
-                index = index + 1
+                acs_urls_index = acs_urls_index + 1
 
             elif child.tag.__contains__("SingleLogoutService"):
                 counter = 1;
@@ -70,7 +70,7 @@ def saml_parser():
 
         return metadata
     else:
-        return "hello"
+        return "404-ERROR ONLY POST DATA IS ACCEPTED"
 
 if __name__ == "__main__":
     app.run() 

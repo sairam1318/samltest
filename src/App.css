@@ -1,8 +1,7 @@
 .certificate {
-    display: flex;
     width: 550px;
     height: 500px;
-    padding-right: 50px;
-    /* border: 1px solid black; */
-    position: relative;
+    padding: 50px;
+    align-items: center;
+    position: initial;
 }
