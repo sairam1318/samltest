@@ -8,7 +8,8 @@ function App() {
         "entityID": null,
         "certificate" : null,
         "acsUrls": null,
-        "singleLogoutUrl": null
+        "singleLogoutService": null,
+        "singleSignonService": null
     });
     const [data, setData] = useState();
     useEffect( ()=> {
@@ -26,7 +27,8 @@ function App() {
         "entityID": json.entityId,
         "certificates" : json.certificate,
         "acsUrls": json.acsUrls,
-        "singleLogoutUrl": json.singleLogoutService
+        "singleLogoutService": json.singleLogoutService,
+        "singleSignonService": json.singleSignonService
       }))
       
     }
@@ -46,15 +48,19 @@ function App() {
           <button onClick={(e)=>{handleSubmission(e)}}>Submit</button>
       </div>
       <div>{resp.entityID != null ? <div>Entity ID: <p><b>{resp.entityID}</b></p></div>: null }</div>
-      <div>{resp.singleLogoutUrl != null ? resp.singleLogoutUrl.map((url)=>{
+      <div>{resp.singleLogoutService != null ? resp.singleLogoutService.map((url)=>{
         return <p>Single Logout Url: <b>{url.Url}</b> Single logout Binding : <b>{url.Binding}</b></p>
       }): null}</div>
       <div>{resp.acsUrls != null ? resp.acsUrls.map(acsUrl => {
         return <p>Acs url: <b>{acsUrl.url}</b> Acs url binding: <b>{acsUrl.binding}</b></p>
       }): null}</div>
+      <div className="signon"> {resp.singleSignonService != null ? resp.singleSignonService.map((signon)=>{
+        return <p><b>Single sign on url:</b>  {signon.url}<br/> <b>Binding: </b>{signon.binding} </p>
+      }): null} </div>
       <div className="certificate">{resp.certificates != null ? resp.certificates.map((cert) => {
-        return <p>Certificate: <br/> {cert.content}</p>
+        return <p><b>Certificate:</b> <br/> {cert.content}</p>
       }): null}</div>
+      
     </div>
   );
 }

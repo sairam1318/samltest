@@ -5,3 +5,9 @@
     align-items: center;
     position: initial;
 }
+
+.signon {
+    align-items: inherit;
+    position: relative;
+    white-space: nowrap;
+}
