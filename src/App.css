@@ -1,13 +1,33 @@
-.certificate {
+/* .certificate {
     width: 550px;
-    height: 500px;
+    height: 850px;
     padding: 50px;
     align-items: center;
     position: initial;
-}
+    white-space: normal;           
+    padding: 10px;            
+} */
 
 .signon {
     align-items: inherit;
     position: relative;
-    white-space: nowrap;
+    white-space: normal;
+}
+
+body {
+    position: relative;
+    padding: 50px;
+    background: lavender;
+    height: fit-content;
+    font-family: cursive;
+    font-size: large;
+    gap: inherit;
+}
+.metadata {
+    display: block;
+}
+
+.url{
+    width: 1000px;
+    height: 50px;
 }

@@ -1,6 +1,7 @@
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
 import xml.etree.ElementTree as ET
+import urllib3
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -11,7 +12,18 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 def saml_parser():
     if request.method == 'POST':
         request_body = request.get_data()
-        root = ET.fromstring(request_body)
+        xml_body_in_string = str(request_body.decode('UTF-8'))
+        
+        if(xml_body_in_string.startswith("https://" or "http://")):
+            print(1)
+            http = urllib3.PoolManager()
+            r = http.request('GET', xml_body_in_string)
+            data = r.data
+            xml_body = data
+        else:
+            xml_body = request_body
+
+        root = ET.fromstring(xml_body)
         acsURls = []
         acs_urls_index = 1
         certificate_index = 1
@@ -33,17 +45,15 @@ def saml_parser():
                 counter = 0
                 data = "";
                 while(counter <= len(certificate_data)):
-                    data = data + certificate_data[counter: counter + 64] + "\n"
+                    data = data + certificate_data[counter: counter + 64].replace("\n", "") + "\n"
                     counter = counter + 64
-
+                    
                 certificates.append({
                     "index": certificate_index,
                     "content": data
                 })
                 certificate_index + 1
                 
-                # certificate = "----BEGIN CERTIFICATE ----\n" + certificate_data + "\n---- END CERTIFICATE ----"
-
             elif child.tag.__contains__("AssertionConsumerService"):
 
                 acsURls.append({
@@ -79,7 +89,7 @@ def saml_parser():
 
         return metadata
     else:
-        return "404-ERROR ONLY POST DATA IS ACCEPTED"
+        return "404-ERROR ONLY POST REQUEST IS ACCEPTED"
 
 if __name__ == "__main__":
     app.run() 
