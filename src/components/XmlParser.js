@@ -27,7 +27,7 @@ const XmlParser = ()=> {
         "singleLogoutService": json.singleLogoutService,
         "singleSignonService": json.singleSignonService
       }))
-      
+
     }
     const handleUrl = (e)=> {
       console.log(e.target.value);
@@ -66,7 +66,7 @@ const XmlParser = ()=> {
       <div className="certificate">{resp.certificates != null ? resp.certificates.map((cert) => {
         return <p key={cert.index}><b><u>Certificate: </u></b> <br/> {cert.content}</p>
       }): null}</div>
-      
+
     </>
 }
 export default XmlParser;

@@ -31,3 +31,16 @@ body {
     width: 1000px;
     height: 50px;
 }
+  
+button, input, select, textarea, p {
+    line-height: inherit;
+    position: inherit;
+    margin-left: 300px;
+}
+textarea {
+    width: 50%;
+    height: 500px;
+    min-height: max-content;
+    resize: none;
+    white-space: nowrap;
+}

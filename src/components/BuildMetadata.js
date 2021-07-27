@@ -2,13 +2,20 @@ import { useState } from "react";
 
 const BuildMetadata = ()=> {
     const [xml, setXml] = useState("");
-    let [entityID, setEntityId] = useState("");
-    let [signOnService, setSignOnService] = useState("")
-    let [logoutService, setLogoutService] = useState("")
-    let [certificate, setCertificate] = useState("")
-    let [nameId, setNameId] = useState("")
-    let [authnRequestNeeded, setAuthnRequestNeeded] = useState()
-    
+    const [entityID, setEntityId] = useState("");
+    const [signOnService, setSignOnService] = useState("")
+    const [logoutService, setLogoutService] = useState("")
+    const [certificate, setCertificate] = useState("")
+    const [nameId, setNameId] = useState("")
+    const [authnRequestNeeded, setAuthnRequestNeeded] = useState()
+    const [organisationName, setOrganisationName ] = useState("")
+    const [organisationDisplayName, setOrganisationDisplayName] = useState()
+    const [organisationUrl, setOrganisationUrl] = useState("")
+    const [tecnicalContactName, setTecnicalContactName] = useState()
+    const [tecnicalContactEmail, setTecnicalContactEmail] = useState()
+    const [supportContactName, setSupportContactName] = useState();
+    const [supportContactEmail, setSupportContactEmail] = useState();
+
     const handleEntityId = (e)=> {
         setEntityId(e.target.value)
     }
@@ -27,6 +34,32 @@ const BuildMetadata = ()=> {
     const handleAuthn = (e)=> {
         setAuthnRequestNeeded(e.target.value)
     }
+    const handleOrganization = (e) => {
+        setOrganisationName(e.target.value);   
+    }
+
+    const handleOrganizationDisplayName = (e) => {
+        setOrganisationDisplayName(e.target.value)
+    }
+
+    const handleOrganizationUrl = (e)=> {
+        setOrganisationUrl(e.target.value);
+    }
+
+    const handleTecnicalContactName = (e)=> {
+        setTecnicalContactEmail(e.target.value)
+    }
+    const handleTecnicalEmail = (e)=> {
+        setTecnicalContactEmail(e.target.value)
+    }
+
+    const handleSupportName = (e)=> {
+        setSupportContactName(e.target.value);
+    }
+    const handleSupportEmail = (e)=> {
+        setSupportContactEmail(e.target.value)
+    }
+    
     const generateMetadata =()=>{
         let metadata = {
             "entityId": entityID,
@@ -34,7 +67,9 @@ const BuildMetadata = ()=> {
             "logoutService": logoutService,
             "certificate": certificate,
             "nameId": nameId,
-            "authnRequesteNeeded": authnRequestNeeded
+            "authnRequesteNeeded": authnRequestNeeded,
+            "organisationName": organisationName,
+            "organisationDisplayName": organisationDisplayName
         }
         console.log(metadata)
         formataDataToXml(metadata);
@@ -47,11 +82,16 @@ const BuildMetadata = ()=> {
         <ds:X509Certificate>${metadata.certificate}</ds:X509Certificate>
         </ds:X509Data>
         </ds:KeyInfo>
-        </md:KeyDescriptor>
-        <md:NameIDFormat>${metadata.nameId}</md:NameIDFormat>
-        <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="${metadata.signOnService}"/>
-        </md:IDPSSODescriptor>
-        </md:EntityDescriptor>`
+        </md:KeyDescriptor>`
+        if(`${metadata.logoutService != null}`) {
+            xml = xml + `<md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="${metadata.logoutService}"/>`
+        }
+        if(`${metadata.nameId != null}`) {
+            xml = xml + `<md:NameIDFormat>${metadata.nameId}</md:NameIDFormat>`
+        }
+        xml = xml + `<md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="${metadata.signOnService}"/>`
+        if(`${metadata.nameId != null}`)
+        
         setXml(xml);
     }
     return (<div>
@@ -73,6 +113,13 @@ const BuildMetadata = ()=> {
             <option>False</option>
         </select>
         <br></br>
+        <br/>ORGANIZATION NAME: <input onChange={(e)=>{handleOrganization(e)}}></input>
+        <br/>ORGANIZATION DISPLAY NAME: <input onChange={(e)=>{handleOrganizationDisplayName(e)}}></input>
+        <br/>ORGANIZATION URL: <input onChange={(e)=>{handleOrganizationUrl(e)}}></input>
+        <br/>TECHNICAL CONTACT <br/> GIVEN NAME: <input onChange={(e)=>{handleTecnicalContactName(e)}}></input>
+        <br/> EMAIL: <input onChange={(e)=>{handleTecnicalEmail(e)}}></input>
+        <br/> SUPPORT CONTACT <br/> GIVEN NAME: <input onChange={(e)=>{handleSupportName(e)}}></input>
+        <br/> EMAIL: <input onChange={(e)=>{handleSupportEmail(e)}}></input>
         <button onClick={generateMetadata}>Build IDP Metadata</button>
         <div>
             {xml != null ? <p>{xml}</p> : null}
