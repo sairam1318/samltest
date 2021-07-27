@@ -4,17 +4,17 @@ const BuildMetadata = ()=> {
     const [xml, setXml] = useState("");
     const [entityID, setEntityId] = useState("");
     const [signOnService, setSignOnService] = useState("")
-    const [logoutService, setLogoutService] = useState("")
+    const [logoutService, setLogoutService] = useState(null)
     const [certificate, setCertificate] = useState("")
-    const [nameId, setNameId] = useState("")
+    const [nameId, setNameId] = useState(null)
     const [authnRequestNeeded, setAuthnRequestNeeded] = useState()
-    const [organisationName, setOrganisationName ] = useState("")
-    const [organisationDisplayName, setOrganisationDisplayName] = useState()
-    const [organisationUrl, setOrganisationUrl] = useState("")
-    const [tecnicalContactName, setTecnicalContactName] = useState()
-    const [tecnicalContactEmail, setTecnicalContactEmail] = useState()
-    const [supportContactName, setSupportContactName] = useState();
-    const [supportContactEmail, setSupportContactEmail] = useState();
+    const [organisationName, setOrganisationName ] = useState(null)
+    const [organisationDisplayName, setOrganisationDisplayName] = useState(null)
+    const [organisationUrl, setOrganisationUrl] = useState(null)
+    const [tecnicalContactName, setTecnicalContactName] = useState(null)
+    const [tecnicalContactEmail, setTecnicalContactEmail] = useState(null)
+    const [supportContactName, setSupportContactName] = useState(null);
+    const [supportContactEmail, setSupportContactEmail] = useState(null);
 
     const handleEntityId = (e)=> {
         setEntityId(e.target.value)
@@ -47,7 +47,7 @@ const BuildMetadata = ()=> {
     }
 
     const handleTecnicalContactName = (e)=> {
-        setTecnicalContactEmail(e.target.value)
+        setTecnicalContactName(e.target.value)
     }
     const handleTecnicalEmail = (e)=> {
         setTecnicalContactEmail(e.target.value)
@@ -69,33 +69,76 @@ const BuildMetadata = ()=> {
             "nameId": nameId,
             "authnRequesteNeeded": authnRequestNeeded,
             "organisationName": organisationName,
-            "organisationDisplayName": organisationDisplayName
+            "organisationDisplayName": organisationDisplayName,
+            "organisationurl": organisationUrl,
+            "tecnicalContactName": tecnicalContactName,
+            "tecnicalContactEmail": tecnicalContactEmail,
+            "supportContactName": supportContactName,
+            "supportContactEmail": supportContactEmail
         }
         console.log(metadata)
         formataDataToXml(metadata);
     }
     const formataDataToXml = (metadata)=> {
-        let xml = `<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" entityID="${metadata.entityId}">
-        <md:IDPSSODescriptor WantAuthnRequestsSigned="${metadata.authnRequestNeeded}" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
-        <md:KeyDescriptor use="signing">
-        <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><ds:X509Data>
-        <ds:X509Certificate>${metadata.certificate}</ds:X509Certificate>
-        </ds:X509Data>
-        </ds:KeyInfo>
-        </md:KeyDescriptor>`
-        if(`${metadata.logoutService != null}`) {
-            xml = xml + `<md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="${metadata.logoutService}"/>`
+        if(`${metadata.entityID.length}` < 1 || `${metadata.signOnService.length}` < 1 || `${metadata.certificate.length}` < 1){
+            return "entity id is required";
+        }else{
+            let xml = `<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" entityID="${metadata.entityId}">
+            <md:IDPSSODescriptor WantAuthnRequestsSigned="${metadata.authnRequestNeeded}" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+            <md:KeyDescriptor use="signing">
+            <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><ds:X509Data>
+            <ds:X509Certificate>${metadata.certificate}</ds:X509Certificate>
+            </ds:X509Data>
+            </ds:KeyInfo>
+            </md:KeyDescriptor>`
+            if(metadata.logoutService != null) {
+                xml = xml + `<md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="${metadata.logoutService}"/>`
+            }
+            if(metadata.nameId != null) {
+                xml = xml + `<md:NameIDFormat>${metadata.nameId}</md:NameIDFormat>`
+            }
+            xml = xml + `<md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="${metadata.signOnService}"/></md:IDPSSODescriptor>`
+            
+            if(metadata.organisationName != null || metadata.organisationDisplayName != null || metadata.setOrganisationUrl != null) {
+                xml = xml + `<md:Organization>`;
+                if(metadata.organisationName != null){
+                    xml = xml + `<md:OrganizationName xml:lang="en-US">${metadata.organisationName}</md:OrganizationName>`
+                }
+                if(metadata.organisationDisplayName != null) {
+                    xml = xml + `<md:OrganizationDisplayName xml:lang="en-US">${metadata.organisationDisplayName}</md:OrganizationDisplayName>`
+                }
+                if(metadata.organisationUrl != null) {
+                    xml = xml + `<md:OrganizationURL xml:lang="en-US">${metadata.organisationUrl}</md:OrganizationURL>`
+                }
+                xml = xml + `</md:Organization>`
+            }
+            if(metadata.tecnicalContactName != null || metadata.tecnicalContactEmail != null){
+                xml = xml + `<md:ContactPerson contactType="tecnical">`
+                if(metadata.tecnicalContactName != null){
+                    xml = xml + `<md:GivenName>${metadata.tecnicalContactName}</md:GivenName>`
+                }
+                if(metadata.tecnicalContactEmail != null){
+                    xml = xml + `<md:EmailAddress>${metadata.tecnicalContactEmail}</md:EmailAddress>`
+                }
+                xml = xml + `</md:ContactPerson>`
+            }
+            if(metadata.supportContactEmail != null || metadata.supportContactName != null){
+                xml = xml + `<md:ContactPerson contactType="support">`
+                if(metadata.supportContactName != null){
+                    xml = xml + `<md:GivenName>${metadata.supportContactName}</md:GivenName>`
+                }
+                if(metadata.supportContactEmail != null){
+                    xml = xml + `<md:EmailAddress>${metadata.supportContactEmail}</md:EmailAddress>`
+                }
+                xml = xml + `</md:ContactPerson>`
+            }
+            xml = xml + `</md:EntityDescriptor>`
+            setXml(xml)
         }
-        if(`${metadata.nameId != null}`) {
-            xml = xml + `<md:NameIDFormat>${metadata.nameId}</md:NameIDFormat>`
-        }
-        xml = xml + `<md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="${metadata.signOnService}"/>`
-        if(`${metadata.nameId != null}`)
-        
-        setXml(xml);
+        ;
     }
     return (<div>
-        Entity Id: <input onChange={(e)=>{handleEntityId(e)}}></input>
+        Entity Id: <input onChange={(e)=>{handleEntityId(e)}} required='True'></input>
         <br/>Single Sign On Service End point: <input onChange={(e)=>{handleSignOn(e)}}></input>
         <br/>Single logout service end point: <input onChange={(e)=>{handleLogout(e)}}></input>
         <br/>SP X.509 cert (same cert for sign/encrypt): <input onChange={(e)=>{handleCert(e)}}></input>
@@ -120,7 +163,7 @@ const BuildMetadata = ()=> {
         <br/> EMAIL: <input onChange={(e)=>{handleTecnicalEmail(e)}}></input>
         <br/> SUPPORT CONTACT <br/> GIVEN NAME: <input onChange={(e)=>{handleSupportName(e)}}></input>
         <br/> EMAIL: <input onChange={(e)=>{handleSupportEmail(e)}}></input>
-        <button onClick={generateMetadata}>Build IDP Metadata</button>
+        <br/><button onClick={generateMetadata}>Build IDP Metadata</button>
         <div>
             {xml != null ? <p>{xml}</p> : null}
         </div>
