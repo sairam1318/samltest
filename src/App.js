@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom'
 import Home from './components/Home';
 import BuildMetadata from './components/BuildMetadata';
 import CertificateWithHeader from './components/CertificateWithHeader'
+import UploadMetadata from './components/UploadMetadata';
+import DownloadMetadata from './components/DownloadMetadata'
+
 function App() {
     return (
       <Router>
@@ -17,6 +20,12 @@ function App() {
             <li>
               <Link to="/certificateWithHeader">Certificate with header</Link>
             </li>
+            <li>
+              <Link to="/upload-metadata">Upload metadata</Link>
+            </li>
+            <li>
+              <Link to="/download-metadata">Download Metadata</Link>
+            </li>
           </ul>
           <Switch>
             <Route path="/parse-xml" exact>
@@ -27,6 +36,12 @@ function App() {
             </Route>
             <Route path="/certificateWithHeader" exact>
               <CertificateWithHeader />
+            </Route>
+            <Route path="/upload-metadata" exact>
+              <UploadMetadata />
+            </Route>
+            <Route path="/download-metadata" exact>
+              < DownloadMetadata />
             </Route>
             <Route path="/" exact>
               <Home/>

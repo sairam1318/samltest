@@ -15,7 +15,6 @@ def saml_parser():
         xml_body_in_string = str(request_body.decode('UTF-8'))
 
         if(xml_body_in_string.startswith("https://" or "http://")):
-            print(1)
             http = urllib3.PoolManager()
             r = http.request('GET', xml_body_in_string)
             data = r.data
@@ -114,6 +113,32 @@ def format_certificate():
 
     else:
         return "404-ERROR ONLY POST REQUEST IS ACCEPTED"
+
+@app.route("/parse-xml", methods=['POST', 'GET'])
+@cross_origin()
+def xml_parse():
+    if request.method == 'POST':
+        request_body = request.get_data()
+        xml_body_in_string = str(request_body.decode('UTF-8'))
+        if(xml_body_in_string.startswith("https://" or "http://")):
+            http = urllib3.PoolManager()
+            r = http.request('GET', xml_body_in_string)
+            data = r.data
+            xml_body = str(data.decode('UTF-8'))
+        else:
+            xml_body = str(request_body.decode('utf-8'))
+        
+        if(xml_body.__contains__('entityID') & xml_body.__contains__('X509Certificate')):
+            xml_body = xml_body
+        else:
+            xml_body = "XML is invalid"
+            
+        resp = {
+            "data": xml_body
+        }
+        return resp;
+    else:
+        return "GET"
 
 if __name__ == "__main__":
     app.run()

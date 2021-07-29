@@ -30,7 +30,6 @@ const XmlParser = ()=> {
 
     }
     const handleUrl = (e)=> {
-      console.log(e.target.value);
       setData(e.target.value);
     }
     const changeHandler = (e) => {
