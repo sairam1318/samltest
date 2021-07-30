@@ -6,8 +6,16 @@ const UploadMetadata = ()=> {
     const handleUrl = (e)=> {
         setData(e.target.value)
     }
+    const handleFile = (e)=> {
+        let file = e.target.files[0];
+        let reader = new FileReader();
+        reader.readAsText(file)
+        reader.onload = (e) => {
+            setData(e.target.result);
+        }
+    }
     const handleSubmission = async (e) => {
-        await fetch('http://127.0.0.1:5000/parse-xml', {
+        await fetch('http://127.0.0.1:5000/uploadmetadata', {
           method: 'POST',
           type: 'CORS',
           body: data
@@ -22,7 +30,7 @@ const UploadMetadata = ()=> {
     <br/>
     <p>(OR)</p>
     <p>select a metadata file from disk that you would like to upload directly.</p>
-    <input type="file" name="file" ></input>
+    <input type="file" name="file" onChange ={(e)=>{handleFile(e)}} ></input>
     <br/>
     <button onClick={(e)=>{handleSubmission(e)}}>fetch</button>
     <div>

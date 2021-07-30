@@ -2,11 +2,12 @@ from flask import Flask, request
 from flask_cors import CORS, cross_origin
 import xml.etree.ElementTree as ET
 import urllib3
+import sqlite3
 
 app = Flask(__name__)
+
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-
 @app.route("/api", methods=['POST', 'GET'])
 @cross_origin()
 def saml_parser():
@@ -114,7 +115,7 @@ def format_certificate():
     else:
         return "404-ERROR ONLY POST REQUEST IS ACCEPTED"
 
-@app.route("/parse-xml", methods=['POST', 'GET'])
+@app.route("/uploadmetadata", methods=['POST', 'GET'])
 @cross_origin()
 def xml_parse():
     if request.method == 'POST':
@@ -130,7 +131,21 @@ def xml_parse():
         
         if(xml_body.__contains__('entityID') & xml_body.__contains__('X509Certificate')):
             xml_body = xml_body
-        else:
+            conn = sqlite3.connect('metadata.db')
+            root = ET.fromstring(xml_body)
+            for child in root.findall(".//"):
+                if child.tag.__contains__('SingleSignOnService'):
+                    signOnUrl = child.attrib['Location']
+            for child in root.findall("."):
+                if child.tag.__contains__("EntityDescriptor"):
+                    entityID = child.attrib['entityID']
+
+            sql_query = "INSERT INTO metadata VALUES (\'" + entityID + "\', \'" + signOnUrl + "\')"
+            print(sql_query)
+            conn.execute(sql_query)
+            conn.commit()
+            conn.close()
+        else:   
             xml_body = "XML is invalid"
             
         resp = {
