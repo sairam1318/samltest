@@ -3,9 +3,11 @@ from flask_cors import CORS, cross_origin
 import xml.etree.ElementTree as ET
 import urllib3
 import sqlite3
-
+conn = sqlite3.connect('metadata.db')
+conn.execute('''CREATE TABLE IF NOT EXISTS metadata(
+        entityId varchar(255) primary key,
+        signOnUrl varchar(255));''')
 app = Flask(__name__)
-
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 @app.route("/api", methods=['POST', 'GET'])
