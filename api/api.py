@@ -121,7 +121,7 @@ def xml_parse():
     if request.method == 'POST':
         request_body = request.get_data()
         xml_body_in_string = str(request_body.decode('UTF-8'))
-        if(xml_body_in_string.startswith("https://" or "http://")):
+        if(xml_body_in_string.startswith("http")):
             http = urllib3.PoolManager()
             r = http.request('GET', xml_body_in_string)
             data = r.data
@@ -140,8 +140,7 @@ def xml_parse():
                 if child.tag.__contains__("EntityDescriptor"):
                     entityID = child.attrib['entityID']
 
-            sql_query = "INSERT INTO metadata VALUES (\'" + entityID + "\', \'" + signOnUrl + "\')"
-            print(sql_query)
+            sql_query = "INSERT INTO metadata(entityId, signOnUrl) select \'" + entityID + "\', \'" + signOnUrl + "\' where not exists (select 1 from metadata where entityID = \'" + entityID + "\' and signOnUrl = \'" + signOnUrl + "\')"
             conn.execute(sql_query)
             conn.commit()
             conn.close()
@@ -154,6 +153,30 @@ def xml_parse():
         return resp;
     else:
         return "GET"
+
+@app.route("/validateEntityId", methods=['POST', 'GET'])
+@cross_origin()
+def validateEntityId():
+    if request.method == 'POST':
+        conn = sqlite3.connect("metadata.db")
+        request_body = request.get_data()
+        entityId = str(request_body.decode('UTF-8'))
+        sql_query = "SELECT signOnUrl from metadata where entityId = \'" + entityId + "\'";
+        try:
+            cursor = conn.execute(sql_query)
+            for row in cursor:
+                signOnUrl = row[0]
+            conn.close()
+            metadata = {
+                "data": signOnUrl
+            }
+        except sqlite3.Error as err:
+            return "Please upload metadata first"
+        
+        return metadata
+
+    else:
+        return "404 ERROR" 
 
 if __name__ == "__main__":
     app.run()

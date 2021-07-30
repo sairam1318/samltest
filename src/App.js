@@ -5,6 +5,7 @@ import BuildMetadata from './components/BuildMetadata';
 import CertificateWithHeader from './components/CertificateWithHeader'
 import UploadMetadata from './components/UploadMetadata';
 import DownloadMetadata from './components/DownloadMetadata'
+import TestIdp from './components/TestIdp';
 
 function App() {
     return (
@@ -26,6 +27,9 @@ function App() {
             <li>
               <Link to="/download-metadata">Download Metadata</Link>
             </li>
+            <li>
+              <Link to="/test-idp">Test IDP</Link>
+            </li>
           </ul>
           <Switch>
             <Route path="/parse-xml" exact>
@@ -42,6 +46,9 @@ function App() {
             </Route>
             <Route path="/download-metadata" exact>
               < DownloadMetadata />
+            </Route>
+            <Route path="/test-idp" exact>
+              < TestIdp />
             </Route>
             <Route path="/" exact>
               <Home/>
