@@ -72,10 +72,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 #FLASK APP:
 
-cd api
-env\Scripts\activate
-pip install -r requirements.txt
-flask run
+#cd api
+#env\Scripts\activate
+#pip install -r requirements.txt
+#flask run
 
 
 
