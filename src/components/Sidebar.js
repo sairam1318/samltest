@@ -9,27 +9,31 @@ import XmlParser from './XmlParser'
 import { BrowserRouter as Router } from 'react-router-dom'
 const Sidebar = ()=> {
     return <Router>
-    <div className='sidebar-header'>
-        <ul className="sidebar-list">
-            <li>
-              <Link to="/parse-xml">PARSE XML</Link>
-            </li>
-            <li className="sidebar-row">
-              <Link to="/build-metadata">Build Metadata</Link>
-            </li>
-            <li className="sidebar-row">
-              <Link to="/certificateWithHeader">Certificate with header</Link>
-            </li>
-            <li className="sidebar-row">
-              <Link to="/upload-metadata">Upload metadata</Link>
-            </li>
-            <li className="sidebar-row">
-              <Link to="/download-metadata">Download Metadata</Link>
-            </li>
-            <li className="sidebar-row">
-              <Link to="/test-idp">Test IDP</Link>
-            </li>
-        </ul>
+      <div className='sidebar-header'>
+          <li>
+            <Link className="btn btn-info btn-lg" to="/parse-xml">PARSE XML</Link>
+          </li>
+          <br/>
+          <li>
+            <Link className="btn btn-info btn-lg" to="/build-metadata">Build Metadata</Link>
+          </li>
+          <br/>
+          <li >
+            <Link className="btn btn-info btn-lg" to="/certificateWithHeader">Certificate with header</Link>
+          </li>
+          <br/>
+          <li >
+            <Link className="btn btn-info btn-lg" to="/upload-metadata">Upload metadata</Link>
+          </li>
+          <br/>
+          <li >
+            <Link className="btn btn-info btn-lg" to="/download-metadata">Download Metadata</Link>
+          </li>
+          <br/>
+          <li >
+            <Link className="btn btn-info btn-lg" to="/test-idp">Test IDP</Link>
+          </li>
+      
         </div>
         <div className="components">
         <Switch>

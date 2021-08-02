@@ -1,4 +1,5 @@
 import { useState } from "react";
+import '../components/BuildMetadata.css'
 
 const BuildMetadata = ()=> {
     const [xml, setXml] = useState("");
@@ -142,7 +143,7 @@ const BuildMetadata = ()=> {
         }
         ;
     }
-    return (<div>
+    return (<div className="container">
         <form classNameName="form-horizontal">
             <div classNameName="form-group">
                 <label for="inputType" className="col-sm-2 control-label">Entity Id (*)</label>

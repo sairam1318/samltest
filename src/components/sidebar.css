@@ -1,13 +1,38 @@
-h1 {
-    position: relative;
-    background-color: blue;
-    width: 25%;
-    flex: auto;
-    height: 100vh;
-    font-display: unset;
+.sidebar-header {
+    width: 20%;
+    float: left;
+    background-color: rgb(213, 223, 223);
+    height: 135vh;
+    justify-content: center;
+    font-size: medium;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
-.sidebar-list
-{
-    display: flex;
-    flex-direction: column;
+.components {
+    width: 80%;
+    float: right;
+    margin-top: 2%;
+    height: fit-content;
+
+}
+li {
+    list-style-type: none;
+    height: 60px;
+    position: relative;
+    justify-content: center;
+    outline: 2mm;
+    padding: 20px 16px;
+    justify-content: center;
+    transition: ease-in-out, width .35s ease-in-out;
+}
+li::placeholder {
+    cursor: pointer;
+}
+li:focus {
+    background-color: red;
+}
+link {
+    width: 100%;
+}
+.btn {
+    width: 100%;
 }
