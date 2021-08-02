@@ -23,20 +23,24 @@ const UploadMetadata = ()=> {
         .then(res => res.json())
         .then(data => setXml(data))
     }
-    return <>
-    <p>Enter the URL where your metadata is hosted(preferably the entityID):</p>
-    <br/>
-    <input onChange={(e)=>{handleUrl(e)}}></input>
-    <br/>
-    <p>(OR)</p>
-    <p>select a metadata file from disk that you would like to upload directly.</p>
-    <input type="file" name="file" onChange ={(e)=>{handleFile(e)}} ></input>
-    <br/>
-    <button onClick={(e)=>{handleSubmission(e)}}>fetch</button>
-    <div>
-        {xml !== undefined ? <p>{xml.data}</p> : null }
+    return <form>
+    <div className="form-group">
+        <div className="col-sm-4">
+        <p className="label label-primary">Enter the URL where your metadata is hosted(preferably the entityID):</p>
+        <br/>
+        <input className="form-control" onChange={(e)=>{handleUrl(e)}}></input>
+        <br/>
+        <legend>(OR)</legend>
+        <p className="p-10 label label-primary">Select a metadata file from disk that you would like to upload directly.</p>
+        <input type="file" name="file" onChange ={(e)=>{handleFile(e)}} ></input>
+        <br/>
+        <button className="btn btn-primary" onClick={(e)=>{handleSubmission(e)}}>Fetch</button>
+        <div>
+            {xml !== undefined ? <p>{xml.data}</p> : null }
+        </div>
+        </div>
     </div>
-    </>
+    </form>
 }
 
 export default UploadMetadata

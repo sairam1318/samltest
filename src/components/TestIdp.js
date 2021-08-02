@@ -17,12 +17,14 @@ const TestIdp = ()=> {
     const handleEntityid = (e)=> {
         setEntityid(e.target.value);
     }
-    return <div>
-        <p><label>Entity Id: </label></p>
-        <br/><input  onChange={e=>{handleEntityid(e)}}></input> 
-        <br/><button onClick={(e)=>{validateEntityId(e)}}>Submit</button>
+    return <form>
+        <div className="col-sm-4">
+        <p><label className="p-10 label label-primary">Entity Id: </label></p>
+        <br/><input className="form-control"  onChange={e=>{handleEntityid(e)} }></input> 
+        <br/><button className="btn btn-primary" onClick={(e)=>{validateEntityId(e)}}>Submit</button>
         {signOnUrl !=  null ? window.location.href = signOnUrl.data : null}
-    </div>
+        </div>
+    </form>
 }
 
 export default TestIdp

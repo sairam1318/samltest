@@ -5,3 +5,8 @@ h1 {
     flex: auto;
     font-display: unset;
 }
+.sidebar-list
+{
+    display: flex;
+    flex-direction: column;
+}
