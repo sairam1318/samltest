@@ -187,9 +187,9 @@ const BuildMetadata = ()=> {
             <br/>
             <br/>
             <div className="form-group">
-                <label for="inputType" className="col-sm-2 control-label">WantAuthnRequestsSigned</label>
+                <label for="inputType"  className="col-sm-2 control-label">WantAuthnRequestsSigned</label>
                 <div className="col-sm-4">
-                    <select onChange={(e)=>{handleAuthn(e)}}>
+                    <select onChange={(e)=>{handleAuthn(e)}} >
                         <option >True</option>
                         <option >False</option>
                     </select>

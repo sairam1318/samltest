@@ -42,12 +42,16 @@ const XmlParser = ()=> {
     }
 
 
-    return <div className="xml-parser">
+    return<form>
+    <div id="xml-parser" className="form-group">
+    <div className="p-10 m-5 col-sm-4">
+    <label className="p-10 label label-primary">Upload File</label>
     <input type="file" name="file" onChange={(e)=>{changeHandler(e)}} accept="xml"  />
       <br/>
-      <p> (OR) PASTE URL HERE: <input className="url" onChange={(e)=>{handleUrl(e)}}></input></p>
+      <legend>(OR)</legend>
+      <p>PASTE URL HERE: <input id="url" className="form-control" onChange={(e)=>{handleUrl(e)}}></input></p>
       <div>
-          <button onClick={(e)=>{handleSubmission(e)}}>Submit</button>
+          <button className="btn btn-primary" onClick={(e)=>{handleSubmission(e)}}>Submit</button>
       </div>
       <br/>
       <div className="metadata">
@@ -65,7 +69,8 @@ const XmlParser = ()=> {
       <div className="certificate">{resp.certificates != null ? resp.certificates.map((cert) => {
         return <p key={cert.index}><b><u>Certificate: </u></b> <br/> {cert.content}</p>
       }): null}</div>
-
     </div>
+    </div>
+    </form> 
 }
 export default XmlParser;

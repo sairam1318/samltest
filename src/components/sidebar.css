@@ -6,3 +6,8 @@ h1 {
     height: 100vh;
     font-display: unset;
 }
+.sidebar-list
+{
+    display: flex;
+    flex-direction: column;
+}

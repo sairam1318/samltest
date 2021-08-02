@@ -1,5 +1,5 @@
 import { Link, Route, Switch } from 'react-router-dom'
-import '../App.css'
+import './sidebar.css'
 import BuildMetadata from './BuildMetadata'
 import CertificateWithHeader from './CertificateWithHeader'
 import DownloadMetadata from './DownloadMetadata'
@@ -8,9 +8,9 @@ import UploadMetadata from './UploadMetadata'
 import XmlParser from './XmlParser'
 const Sidebar = ()=> {
     return <>
-    <div className='sidebar'>
+    <div className='sidebar-header'>
         <ul className="sidebar-list">
-            <li className="sidebar-row">
+            <li>
               <Link to="/parse-xml">PARSE XML</Link>
             </li>
             <li className="sidebar-row">

@@ -25,12 +25,16 @@ const CertificateWithHeader = ()=> {
     console.log(present_date)
     fileDownload(certificateWithHeader.data, fileName)
   }
-    return <div>
-        <textarea className="form-control" rows="3" onChange={(e)=>{handleCertificate(e)}}></textarea>
-        <br/>
-        <button onClick={()=>{formatCertificate()}}>format certificate</button>
-        {certificateWithHeader != null ? <p>{certificateWithHeader.data} <br/><button onClick={handleCertificateSave}>download certificate</button></p>: null}
-    </div>
+    return <form>
+        <div className="form-group">
+          <div className="col-sm-4">
+            <textarea id="certificate-text-area" className="form-control"  onChange={(e)=>{handleCertificate(e)}}></textarea>
+            <br/>
+            <button className="btn btn-primary" onClick={()=>{formatCertificate()}}>format certificate</button>
+            {certificateWithHeader != null ? <p>{certificateWithHeader.data} <br/><button className="btn btn-primary" onClick={handleCertificateSave}>download certificate</button></p>: null}
+          </div>
+        </div>
+    </form>
 
 }
 export default CertificateWithHeader
