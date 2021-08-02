@@ -138,32 +138,130 @@ const BuildMetadata = ()=> {
         ;
     }
     return (<div>
-        Entity Id: <input onChange={(e)=>{handleEntityId(e)}} required='True'></input>
-        <br/>Single Sign On Service End point: <input onChange={(e)=>{handleSignOn(e)}}></input>
-        <br/>Single logout service end point: <input onChange={(e)=>{handleLogout(e)}}></input>
-        <br/>SP X.509 cert (same cert for sign/encrypt): <input onChange={(e)=>{handleCert(e)}}></input>
-        <br/>NameId Format: <select onChange={(e)=>{handleNameId(e)}}>
-            <option>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</option>
-            <option>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</option>
-            <option>urn:oasis:names:tc:SAML:1.1:nameid-format:entity</option>
-            <option>urn:oasis:names:tc:SAML:1.1:nameid-format:transient</option>
-            <option>urn:oasis:names:tc:SAML:1.1:nameid-format:persistent</option>
-            <option>urn:oasis:names:tc:SAML:1.1:nameid-format:encrypted</option>
-        </select>
-        <br/>WantAuthnRequestsSigned:
-        <select onChange={(e)=>{handleAuthn(e)}}>
-            <option>True</option>
-            <option>False</option>
-        </select>
-        <br></br>
-        <br/>ORGANIZATION NAME: <input onChange={(e)=>{handleOrganization(e)}}></input>
-        <br/>ORGANIZATION DISPLAY NAME: <input onChange={(e)=>{handleOrganizationDisplayName(e)}}></input>
-        <br/>ORGANIZATION URL: <input onChange={(e)=>{handleOrganizationUrl(e)}}></input>
-        <br/>TECHNICAL CONTACT <br/> GIVEN NAME: <input onChange={(e)=>{handleTecnicalContactName(e)}}></input>
-        <br/> EMAIL: <input onChange={(e)=>{handleTecnicalEmail(e)}}></input>
-        <br/> SUPPORT CONTACT <br/> GIVEN NAME: <input onChange={(e)=>{handleSupportName(e)}}></input>
-        <br/> EMAIL: <input onChange={(e)=>{handleSupportEmail(e)}}></input>
-        <br/><button onClick={generateMetadata}>Build IDP Metadata</button>
+        <form classNameName="form-horizontal" role="form">
+            <div classNameName="form-group">
+                <label for="inputType" className="col-sm-2 control-label">Entity Id</label>
+                <div className="col-sm-4">
+                    <input type="text" className="form-control" id="input" placeholder="Entity Id" onChange={(e)=>{handleEntityId(e)}}/>
+                </div>
+            </div>
+            <br/>
+            <br/>   
+            <div className="form-group">
+                <label for="inputType" className="col-sm-2 control-label">Single Sign On Service End point</label>
+                <div className="col-sm-4">
+                    <input type="text" className="form-control" id="input" placeholder="Single Sign on Service" onChange={(e)=>{handleSignOn(e)}}/>
+                </div>
+            </div>
+            <br/>
+            <br/> 
+            <div className="form-group">
+                <label for="inputType" className="col-sm-2 control-label">Single logout service end point</label>
+                <div className="col-sm-4">
+                    <input type="text" className="form-control" id="input" placeholder="Single logout service" onChange={(e)=>{handleLogout(e)}}/>
+                </div>
+            </div>
+            <br/>
+            <br/> 
+            <div className="form-group">
+                <label for="inputType" className="col-sm-2 control-label">SP X.509 cert (same cert for sign/encrypt)</label>
+                <div className="col-sm-4">
+                    <input type="text" className="form-control" id="input" placeholder="Certificate" onChange={(e)=>{handleCert(e)}}/>
+                </div>
+            </div>
+            <br/>
+            <br/>
+            <div className="form-group">
+                <label for="NameId Format" className="col-sm-2 control-label">NameId Format</label>
+                <div className="col-sm-4">
+                    <select  onChange={(e)=>{handleNameId(e)}}>
+                        <option >urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</option>
+                        <option >urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</option>
+                        <option >urn:oasis:names:tc:SAML:1.1:nameid-format:entity</option>
+                        <option>urn:oasis:names:tc:SAML:1.1:nameid-format:transient</option>
+                        <option>urn:oasis:names:tc:SAML:1.1:nameid-format:persistent</option>
+                        <option>urn:oasis:names:tc:SAML:1.1:nameid-format:encrypted</option>
+                    </select>
+                </div>
+            </div>
+            <br/>
+            <br/>
+            <div className="form-group">
+                <label for="inputType" className="col-sm-2 control-label">WantAuthnRequestsSigned</label>
+                <div className="col-sm-4">
+                    <select onChange={(e)=>{handleAuthn(e)}}>
+                        <option >True</option>
+                        <option >False</option>
+                    </select>
+                </div>
+            </div>
+            <br/>
+            <br/> 
+            <div className="form-group">
+                <label for="inputType" className="col-sm-2 control-label">ORGANIZATION NAME</label>
+                <div className="col-sm-4">
+                    <input type="text" className="form-control" id="input" placeholder="Organisation Name" onChange={(e)=>{handleOrganization(e)}}/>
+                </div>
+            </div>
+            <br/>
+            <br/> 
+            <div className="form-group">
+                <label for="inputType" className="col-sm-2 control-label">ORGANIZATION DISPLAY NAME</label>
+                <div className="col-sm-4">
+                    <input type="text" className="form-control" id="input" placeholder="organisation display name" onChange={(e)=>{handleOrganizationDisplayName(e)}}/>
+                </div>
+            </div>
+            <br/>
+            <br/> 
+            <div className="form-group">
+                <label for="inputType" className="col-sm-2 control-label">ORGANIZATION URL</label>
+                <div className="col-sm-4">
+                    <input type="text" className="form-control" id="input" placeholder="organisation url" onChange={(e)=>{handleOrganizationUrl(e)}}/>
+                </div>
+            </div>
+            <br/>
+            <br/> 
+            <div className="col-sm-2 control-label">Tecnical Contact</div>
+            <br/>
+            <br/>
+            <div className="form-group">
+                <label for="inputType" className="col-sm-2 control-label">GIVEN NAME</label>
+                <div className="col-sm-4">
+                    <input type="text" className="form-control" id="input" placeholder="Name" onChange={(e)=>{handleTecnicalContactName(e)}}/>
+                </div>
+            </div>
+            <br/>
+            <br/> 
+            <div className="form-group">
+                <label for="inputType" className="col-sm-2 control-label">Email</label>
+                <div className="col-sm-4">
+                    <input type="text" className="form-control" id="input" placeholder="Email" onChange={(e)=>{handleTecnicalEmail  (e)}}/>
+                </div>
+            </div>
+            <br/>
+            <br/>
+            <div className="col-sm-2 control-label">Support Contact</div>
+            <br/>
+            <br/>
+            <div className="form-group">
+                <label for="inputType" className="col-sm-2 control-label">Contact</label>
+                <div className="col-sm-4">
+                    <input type="text" className="form-control" id="input" placeholder="Support Name" onChange={(e)=>{handleSupportName(e)}}/>
+                </div>
+            </div>
+            <br/>
+            <br/> 
+            <div className="form-group">
+                <label for="inputType" className="col-sm-2 control-label">Email</label>
+                <div className="col-sm-4">
+                    <input type="text" className="form-control" id="input" placeholder="Email" onChange={(e)=>{handleSupportEmail(e)}}/>
+                </div>
+            </div>
+            <br/>
+            <br/>
+            <button onClick={generateMetadata}>Build IDP Metadata</button>
+        </form>
+                       
         <div>
             {xml != null ? <p>{xml}</p> : null}
         </div>
