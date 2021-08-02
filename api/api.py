@@ -127,6 +127,7 @@ def xml_parse():
     if request.method == 'POST':
         request_body = request.get_data()
         xml_body_in_string = str(request_body.decode('UTF-8'))
+
         if(xml_body_in_string.startswith("http")):
             http = urllib3.PoolManager()
             r = http.request('GET', xml_body_in_string)
@@ -135,6 +136,9 @@ def xml_parse():
         else:
             xml_body = str(request_body.decode('utf-8'))
         
+        signOnUrl = ""
+        entityID = ""
+        error = None
         if(xml_body.__contains__('entityID') & xml_body.__contains__('X509Certificate')):
             xml_body = xml_body
             conn = sqlite3.connect('metadata.db')
@@ -151,10 +155,11 @@ def xml_parse():
             conn.commit()
             conn.close()
         else:   
-            xml_body = "XML is invalid"
+            error = "XML is invalid"
             
         resp = {
-            "data": xml_body
+            "data": xml_body,
+            "error": error
         }
         return resp;
     else:

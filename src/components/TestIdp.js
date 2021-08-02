@@ -8,6 +8,7 @@ const TestIdp = ()=> {
     });
 
     const validateEntityId = (e)=> {  
+        e.preventDefault();
         if(entityid.length > 1) {
             fetch('http://127.0.0.1:5000/validateEntityId', {
             method: 'POST',
@@ -34,7 +35,6 @@ const TestIdp = ()=> {
         <br/><input className="form-control"  onChange={e=>{handleEntityid(e)} }></input> 
         <br/><button className="btn btn-primary" onClick={(e)=>{validateEntityId(e)}}>Submit</button>
         {signOnUrl.data != null ? (signOnUrl.data.length > 1 ?  window.location.href = signOnUrl.data: <p>Entered entity id did not match. Please upload metadata First</p> ): null}
-
         </div>
     </form>
 }

@@ -2,10 +2,10 @@ import { useState } from "react";
 
 const BuildMetadata = ()=> {
     const [xml, setXml] = useState("");
-    const [entityID, setEntityId] = useState("");
-    const [signOnService, setSignOnService] = useState("")
+    const [entityID, setEntityId] = useState(null);
+    const [signOnService, setSignOnService] = useState(null)
     const [logoutService, setLogoutService] = useState(null)
-    const [certificate, setCertificate] = useState("")
+    const [certificate, setCertificate] = useState(null)
     const [nameId, setNameId] = useState(null)
     const [authnRequestNeeded, setAuthnRequestNeeded] = useState()
     const [organisationName, setOrganisationName ] = useState(null)
@@ -60,7 +60,8 @@ const BuildMetadata = ()=> {
         setSupportContactEmail(e.target.value)
     }
     
-    const generateMetadata =()=>{
+    const generateMetadata =(e)=>{
+        e.preventDefault();
         let metadata = {
             "entityId": entityID,
             "signOnService": signOnService,
@@ -76,11 +77,15 @@ const BuildMetadata = ()=> {
             "supportContactName": supportContactName,
             "supportContactEmail": supportContactEmail
         }
-        console.log(metadata)
-        formataDataToXml(metadata);
+        if(entityID === null || signOnService === null || certificate === null) {
+            alert("Missing the required fields")
+        }else{
+            formataDataToXml(metadata);
+        }
+        
     }
     const formataDataToXml = (metadata)=> {
-        if(`${metadata.entityID.length}` < 1 || `${metadata.signOnService.length}` < 1 || `${metadata.certificate.length}` < 1){
+        if(metadata.entityId.length < 1 || metadata.signOnService.length < 1 || metadata.certificate.length < 1){
             return "entity id is required";
         }else{
             let xml = `<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" entityID="${metadata.entityId}">
@@ -140,7 +145,7 @@ const BuildMetadata = ()=> {
     return (<div>
         <form classNameName="form-horizontal">
             <div classNameName="form-group">
-                <label for="inputType" className="col-sm-2 control-label">Entity Id</label>
+                <label for="inputType" className="col-sm-2 control-label">Entity Id (*)</label>
                 <div className="col-sm-4">
                     <input type="text" className="form-control" id="input" placeholder="Entity Id" onChange={(e)=>{handleEntityId(e)}} required />
                 </div>
@@ -259,7 +264,7 @@ const BuildMetadata = ()=> {
             </div>
             <br/>
             <br/>
-            <button onClick={generateMetadata}>Build IDP Metadata</button>
+            <button onClick={(e)=>{generateMetadata(e)}}>Build IDP Metadata</button>
         </form>
                        
         <div>

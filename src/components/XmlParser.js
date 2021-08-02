@@ -14,19 +14,25 @@ const XmlParser = ()=> {
     }, [resp])
 
     const handleSubmission = async (e) => {
-      await fetch('http://127.0.0.1:5000/api', {
-        method: 'POST',
-        mode: 'cors',
-        body: data,
-      })
-      .then(res => res.json())
-      .then(json => setResp({
-        "entityID": json.entityId,
-        "certificates" : json.certificate,
-        "acsUrls": json.acsUrls,
-        "singleLogoutService": json.singleLogoutService,
-        "singleSignonService": json.singleSignonService
-      }))
+      e.preventDefault();
+      if(data === undefined || data == null){
+        alert("Please upload a valid url or file")
+      }else{
+        await fetch('http://127.0.0.1:5000/api', {
+          method: 'POST',
+          mode: 'cors',
+          body: data,
+        })
+        .then(res => res.json())
+        .then(json => setResp({
+          "entityID": json.entityId,
+          "certificates" : json.certificate,
+          "acsUrls": json.acsUrls,
+          "singleLogoutService": json.singleLogoutService,
+          "singleSignonService": json.singleSignonService
+        }))
+      }
+      
 
     }
     const handleUrl = (e)=> {

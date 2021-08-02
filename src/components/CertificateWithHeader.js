@@ -9,14 +9,20 @@ const CertificateWithHeader = ()=> {
     setCertificate(e.target.value)
   }
   const formatCertificate = (e)=> {
-    fetch('http://127.0.0.1:5000/formatCertificate', {
-        method: 'POST',
-        body: certificate,
-    })
-    .then(res => res.json())
-    .then(data => {
-        setCertificateWithHeader(data)
-    })
+    e.preventDefault();
+    if(certificate === null || certificate === undefined){
+      alert("Please enter a valid certificate")
+    }else{
+      fetch('http://127.0.0.1:5000/formatCertificate', {
+          method: 'POST',
+          body: certificate,
+      })
+      .then(res => res.json())
+      .then(data => {
+          setCertificateWithHeader(data)
+      })
+    }
+    
   }
   const handleCertificateSave = ()=> {
     var date = new Date();
@@ -30,7 +36,7 @@ const CertificateWithHeader = ()=> {
           <div className="col-sm-4">
             <textarea id="certificate-text-area" className="form-control"  onChange={(e)=>{handleCertificate(e)}}></textarea>
             <br/>
-            <button className="btn btn-primary" onClick={()=>{formatCertificate()}}>format certificate</button>
+            <button className="btn btn-primary" onClick={(e)=>{formatCertificate(e)}}>format certificate</button>
             {certificateWithHeader != null ? <p>{certificateWithHeader.data} <br/><button className="btn btn-primary" onClick={handleCertificateSave}>download certificate</button></p>: null}
           </div>
         </div>

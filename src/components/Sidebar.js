@@ -6,8 +6,9 @@ import DownloadMetadata from './DownloadMetadata'
 import TestIdp from './TestIdp'
 import UploadMetadata from './UploadMetadata'
 import XmlParser from './XmlParser'
+import { BrowserRouter as Router } from 'react-router-dom'
 const Sidebar = ()=> {
-    return <>
+    return <Router>
     <div className='sidebar-header'>
         <ul className="sidebar-list">
             <li>
@@ -52,6 +53,6 @@ const Sidebar = ()=> {
             </Route>
           </Switch>
     </div>
-    </>
+    </Router>
 }
 export default Sidebar

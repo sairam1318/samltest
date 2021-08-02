@@ -15,13 +15,19 @@ const UploadMetadata = ()=> {
         }
     }
     const handleSubmission = async (e) => {
-        await fetch('http://127.0.0.1:5000/uploadmetadata', {
-          method: 'POST',
-          type: 'CORS',
-          body: data
-        })
-        .then(res => res.json())
-        .then(data => setXml(data))
+        e.preventDefault();
+        if(data === undefined) {
+            alert("Please upload a file or enter url")
+        }else{
+            await fetch('http://127.0.0.1:5000/uploadmetadata', {
+                method: 'POST',
+                type: 'CORS',
+                body: data
+              })
+              .then(res => res.json())
+              .then(data => setXml(data))
+        }
+        
     }
     return <form>
     <div className="form-group">
