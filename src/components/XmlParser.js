@@ -42,7 +42,7 @@ const XmlParser = ()=> {
     }
 
 
-    return <>
+    return <div className="xml-parser">
     <input type="file" name="file" onChange={(e)=>{changeHandler(e)}} accept="xml"  />
       <br/>
       <p> (OR) PASTE URL HERE: <input className="url" onChange={(e)=>{handleUrl(e)}}></input></p>
@@ -66,6 +66,6 @@ const XmlParser = ()=> {
         return <p key={cert.index}><b><u>Certificate: </u></b> <br/> {cert.content}</p>
       }): null}</div>
 
-    </>
+    </div>
 }
 export default XmlParser;

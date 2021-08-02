@@ -1,7 +1,7 @@
 
 const DownloadMetadata = ()=> {
   return <>
-    <p>SAML test METADATA</p>
+    <p className="downloadMetadata">Download test METADATA</p>
   </>
 }
 export default DownloadMetadata
