@@ -1,3 +1,4 @@
+from os import error
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
 import xml.etree.ElementTree as ET
@@ -112,6 +113,9 @@ def format_certificate():
             counter = counter + 64
 
         certificate_with_header = header + formatted_certificate + '\n' + footer
+        if(certificate_length <= 2):
+            certificate_with_header = None 
+        
         return {"data": certificate_with_header}
 
     else:
@@ -163,20 +167,28 @@ def validateEntityId():
         conn = sqlite3.connect("metadata.db")
         request_body = request.get_data()
         entityId = str(request_body.decode('UTF-8'))
-        sql_query = "SELECT signOnUrl from metadata where entityId = \'" + entityId + "\'";
+        print("enityId", entityId)
+        sql_query = "select signOnUrl from metadata where entityId=\'" + entityId + "\'";
+        print(sql_query)
+        error = None
+        signOnUrl = ""
         try:
             cursor = conn.execute(sql_query)
             for row in cursor:
+                print("row", row[0])
                 signOnUrl = row[0]
             conn.close()
-            metadata = {
-                "data": signOnUrl
-            }
+            
         except sqlite3.Error as err:
-            return "Please upload metadata first"
+            print('SQLite error: %s' % (' '.join(err.args)));
+            error = err.args
         
+        metadata = {
+                "data": signOnUrl,
+                "error": error
+            }
         return metadata
-
+        
     else:
         return "404 ERROR" 
 

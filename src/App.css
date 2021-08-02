@@ -89,7 +89,7 @@ body {
   .lh-tight { line-height: 1.25; }
 
   .sidebar {
-    height: 100vh;
+    height: 100%;
     width: 220px;
     background-color: rgba(3, 26, 26, 0.712);
     padding: 0%;
@@ -101,7 +101,6 @@ body {
     list-style-type: none;
     display: flex;
     flex-direction: column;
-    color: black;
     justify-content: top;
     align-items: center;
     font-size: large;

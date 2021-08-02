@@ -3,5 +3,6 @@ h1 {
     background-color: blue;
     width: 25%;
     flex: auto;
+    height: 100vh;
     font-display: unset;
 }

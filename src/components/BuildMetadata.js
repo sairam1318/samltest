@@ -138,11 +138,11 @@ const BuildMetadata = ()=> {
         ;
     }
     return (<div>
-        <form classNameName="form-horizontal" role="form">
+        <form classNameName="form-horizontal">
             <div classNameName="form-group">
                 <label for="inputType" className="col-sm-2 control-label">Entity Id</label>
                 <div className="col-sm-4">
-                    <input type="text" className="form-control" id="input" placeholder="Entity Id" onChange={(e)=>{handleEntityId(e)}}/>
+                    <input type="text" className="form-control" id="input" placeholder="Entity Id" onChange={(e)=>{handleEntityId(e)}} required />
                 </div>
             </div>
             <br/>
