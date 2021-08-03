@@ -1,17 +1,20 @@
 .sidebar-header {
     width: 18%;
     float: left;
-    height: 150vh;
+    height: 100vh;
+    position: fixed;
     justify-content: center;
     background-color: rgba(192, 236, 230, 0.993);
     font-size: medium;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 .components {
-    width: 82%;
+    width: 80%;
+    height: 96vh;
     float: right;
     margin-top: 2%;
-    height: fit-content;
+    overflow-x: hidden;
+    
 }
 li {
     list-style-type: none;
