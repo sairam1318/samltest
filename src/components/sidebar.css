@@ -1,38 +1,36 @@
 .sidebar-header {
-    width: 20%;
+    width: 18%;
     float: left;
-    background-color: rgb(213, 223, 223);
-    height: 135vh;
+    height: 150vh;
     justify-content: center;
+    background-color: rgba(192, 236, 230, 0.993);
     font-size: medium;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 .components {
-    width: 80%;
+    width: 82%;
     float: right;
     margin-top: 2%;
     height: fit-content;
-
 }
 li {
     list-style-type: none;
     height: 60px;
     position: relative;
     justify-content: center;
-    outline: 2mm;
-    padding: 20px 16px;
+    padding: 2px;
     justify-content: center;
     transition: ease-in-out, width .35s ease-in-out;
 }
 li::placeholder {
     cursor: pointer;
 }
-li:focus {
-    background-color: red;
-}
 link {
     width: 100%;
 }
 .btn {
     width: 100%;
+}
+.btn-sidebar {
+    border-radius: 1%;
 }

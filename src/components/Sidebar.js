@@ -11,29 +11,23 @@ const Sidebar = ()=> {
     return <Router>
       <div className='sidebar-header'>
           <li>
-            <Link className="btn btn-info btn-lg" to="/parse-xml">PARSE XML</Link>
+            <Link className="btn btn-sidebar btn-lg" to="/parse-xml">PARSE XML</Link>
           </li>
-          <br/>
           <li>
-            <Link className="btn btn-info btn-lg" to="/build-metadata">Build Metadata</Link>
+            <Link className="btn btn-sidebar btn-lg" to="/build-metadata">Build Metadata</Link>
           </li>
-          <br/>
           <li >
-            <Link className="btn btn-info btn-lg" to="/certificateWithHeader">Certificate with header</Link>
+            <Link className="btn btn-sidebar btn-lg" to="/certificateWithHeader">Certificate with header</Link>
           </li>
-          <br/>
           <li >
-            <Link className="btn btn-info btn-lg" to="/upload-metadata">Upload metadata</Link>
+            <Link className="btn btn-sidebar btn-lg" to="/upload-metadata">Upload metadata</Link>
           </li>
-          <br/>
           <li >
-            <Link className="btn btn-info btn-lg" to="/download-metadata">Download Metadata</Link>
+            <Link className="btn btn-sidebar btn-lg" to="/download-metadata">Download Metadata</Link>
           </li>
-          <br/>
           <li >
-            <Link className="btn btn-info btn-lg" to="/test-idp">Test IDP</Link>
+            <Link className="btn btn-sidebar btn-lg" to="/test-idp">Test IDP</Link>
           </li>
-      
         </div>
         <div className="components">
         <Switch>

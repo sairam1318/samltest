@@ -1,5 +1,5 @@
 import { useState } from "react"
-
+import XMLViewer from 'react-xml-viewer'
 const UploadMetadata = ()=> {
     const [data, setData] = useState();
     const [xml, setXml] = useState();
@@ -31,20 +31,24 @@ const UploadMetadata = ()=> {
     }
     return <form>
     <div className="form-group">
-        <div className="col-sm-4">
-        <p className="label label-primary">Enter the URL where your metadata is hosted(preferably the entityID):</p>
-        <br/>
-        <input className="form-control" onChange={(e)=>{handleUrl(e)}}></input>
-        <br/>
-        <legend>(OR)</legend>
-        <p className="p-10 label label-primary">Select a metadata file from disk that you would like to upload directly.</p>
+        <div className="col-xs-4">
+            <label>Enter the URL where your metadata is hosted(preferably the entityID):</label>
+            <br/>
+            <input className="form-control" onChange={(e)=>{handleUrl(e)}}></input>
+        <div/>
+        <div>
+        <legend>OR</legend>
+        <label>Select a metadata file from disk that you would like to upload directly.</label>
         <input type="file" name="file" onChange ={(e)=>{handleFile(e)}} ></input>
         <br/>
         <button className="btn btn-primary" onClick={(e)=>{handleSubmission(e)}}>Fetch</button>
         <div>
-            {xml !== undefined ? <p>{xml.data}</p> : null }
+            {xml !== undefined ?<div className="wrap-xml"> Metadata uploaded successfully. <br/> Here is the copy of it <br/> <XMLViewer  xml={xml.data}/> 
+            </div> : null }
         </div>
-        </div>
+        
+    </div>
+    </div>
     </div>
     </form>
 }

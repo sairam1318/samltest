@@ -139,8 +139,21 @@ def xml_parse():
         signOnUrl = ""
         entityID = ""
         error = None
+        carbon_copy = ""
         if(xml_body.__contains__('entityID') & xml_body.__contains__('X509Certificate')):
-            xml_body = xml_body
+            start_certificate = '<ds:X509Certificate>'
+            end_certificate = '</ds:X509Certificate>'
+            start_index = xml_body.index(start_certificate)
+            end_index = xml_body.index(end_certificate)
+    
+            certificate = xml_body[start_index+len(start_certificate): end_index]
+            counter = 0
+            formatted_certificate = ""
+            while(counter < len(certificate)):
+                formatted_certificate += certificate[counter : counter + 64] + "\n"
+                counter += 64
+            carbon_copy = xml_body[0: start_index] + xml_body[start_index: end_index] + xml_body[end_index : len(xml_body)]
+            print(carbon_copy)
             conn = sqlite3.connect('metadata.db')
             root = ET.fromstring(xml_body)
             for child in root.findall(".//"):
@@ -158,7 +171,7 @@ def xml_parse():
             error = "XML is invalid"
             
         resp = {
-            "data": xml_body,
+            "data": carbon_copy,
             "error": error
         }
         return resp;
