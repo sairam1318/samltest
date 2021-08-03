@@ -17,12 +17,12 @@ def saml_parser():
     if request.method == 'POST':
         request_body = request.get_data()
         xml_body_in_string = str(request_body.decode('UTF-8'))
-
-        if(xml_body_in_string.startswith("https://" or "http://")):
+        print(xml_body_in_string)
+        if(xml_body_in_string.startswith("http")):
             http = urllib3.PoolManager()
             r = http.request('GET', xml_body_in_string)
             data = r.data
-            xml_body = data
+            xml_body = str(data.decode('UTF-8'))
         else:
             xml_body = request_body
 

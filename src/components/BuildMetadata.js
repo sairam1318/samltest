@@ -1,14 +1,15 @@
 import { useState } from "react";
+import XMLViewer from "react-xml-viewer";
 import '../components/BuildMetadata.css'
 
 const BuildMetadata = ()=> {
-    const [xml, setXml] = useState("");
+    const [xml, setXml] = useState(null);
     const [entityID, setEntityId] = useState(null);
     const [signOnService, setSignOnService] = useState(null)
     const [logoutService, setLogoutService] = useState(null)
     const [certificate, setCertificate] = useState(null)
     const [nameId, setNameId] = useState(null)
-    const [authnRequestNeeded, setAuthnRequestNeeded] = useState()
+    const [authnRequestNeeded, setAuthnRequestNeeded] = useState(true)
     const [organisationName, setOrganisationName ] = useState(null)
     const [organisationDisplayName, setOrganisationDisplayName] = useState(null)
     const [organisationUrl, setOrganisationUrl] = useState(null)
@@ -33,7 +34,9 @@ const BuildMetadata = ()=> {
         setNameId(e.target.value)
     }
     const handleAuthn = (e)=> {
-        setAuthnRequestNeeded(e.target.value)
+        if(e.target.value !== undefined) {
+            setAuthnRequestNeeded(e.target.value)
+        }
     }
     const handleOrganization = (e) => {
         setOrganisationName(e.target.value);   
@@ -81,6 +84,7 @@ const BuildMetadata = ()=> {
         if(entityID === null || signOnService === null || certificate === null) {
             alert("Missing the required fields")
         }else{
+            console.log(metadata)
             formataDataToXml(metadata);
         }
         
@@ -90,7 +94,7 @@ const BuildMetadata = ()=> {
             return "entity id is required";
         }else{
             let xml = `<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" entityID="${metadata.entityId}">
-            <md:IDPSSODescriptor WantAuthnRequestsSigned="${metadata.authnRequestNeeded}" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+            <md:IDPSSODescriptor WantAuthnRequestsSigned="${metadata.authnRequesteNeeded}" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
             <md:KeyDescriptor use="signing">
             <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><ds:X509Data>
             <ds:X509Certificate>${metadata.certificate}</ds:X509Certificate>
@@ -197,7 +201,7 @@ const BuildMetadata = ()=> {
                 <div className="col-sm-4">
                     <select onChange={(e)=>{handleAuthn(e)}} >
                         <option >True</option>
-                        <option >False</option>
+                        <option selected >False</option>
                     </select>
                 </div>
             </div>
@@ -272,9 +276,10 @@ const BuildMetadata = ()=> {
             <button className="btn btn-success" onClick={(e)=>{generateMetadata(e)}}>Build IDP Metadata</button>
             </div>
         </form>
-                       
+        <br/>   
+        <br/>          
         <div>
-            {xml != null ? <p>{xml}</p> : null}
+            {xml != null ? <p><XMLViewer  xml={xml}/></p> : null}
         </div>
     </div>)
 }
