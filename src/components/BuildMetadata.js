@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import XMLViewer from "react-xml-viewer";
 import '../components/BuildMetadata.css'
 
@@ -17,7 +17,7 @@ const BuildMetadata = ()=> {
     const [tecnicalContactEmail, setTecnicalContactEmail] = useState(null)
     const [supportContactName, setSupportContactName] = useState(null);
     const [supportContactEmail, setSupportContactEmail] = useState(null);
-
+    const input = useRef();
     const handleEntityId = (e)=> {
         setEntityId(e.target.value)
     }
@@ -66,6 +66,7 @@ const BuildMetadata = ()=> {
     
     const generateMetadata =(e)=>{
         e.preventDefault();
+        input.current.value = ""
         let metadata = {
             "entityId": entityID,
             "signOnService": signOnService,
@@ -144,6 +145,7 @@ const BuildMetadata = ()=> {
             }
             xml = xml + `</md:EntityDescriptor>`
             setXml(xml)
+            
         }
         ;
     }
@@ -152,7 +154,7 @@ const BuildMetadata = ()=> {
             <div classNameName="form-group">
                 <label for="Entity Id" className="col-sm-2 control-label">Entity Id </label>
                 <div className="col-sm-4">
-                    <input type="text" className="form-control" id="input" placeholder="Entity Id" onChange={(e)=>{handleEntityId(e)}} required />
+                    <input ref={input} type="text" className="form-control" id="input" placeholder="Entity Id" onChange={(e)=>{handleEntityId(e)}} required />
                 </div>
             </div>
             <br/>
@@ -160,7 +162,7 @@ const BuildMetadata = ()=> {
             <div className="form-group">
                 <label for="inputType" className="col-sm-2 control-label">Single Sign On Service End point</label>
                 <div className="col-sm-4">
-                    <input type="text" className="form-control" id="input" placeholder="Single Sign on Service" onChange={(e)=>{handleSignOn(e)}}/>
+                    <input ref={input} type="text" className="form-control" id="input" placeholder="Single Sign on Service" onChange={(e)=>{handleSignOn(e)}}/>
                 </div>
             </div>
             <br/>
@@ -168,7 +170,7 @@ const BuildMetadata = ()=> {
             <div className="form-group">
                 <label for="inputType" className="col-sm-2 control-label">Single logout service end point</label>
                 <div className="col-sm-4">
-                    <input type="text" className="form-control" id="input" placeholder="Single logout service" onChange={(e)=>{handleLogout(e)}}/>
+                    <input ref={input} type="text" className="form-control" id="input" placeholder="Single logout service" onChange={(e)=>{handleLogout(e)}}/>
                 </div>
             </div>
             <br/>
@@ -176,7 +178,7 @@ const BuildMetadata = ()=> {
             <div className="form-group">
                 <label for="inputType" className="col-sm-2 control-label">SP X.509 cert (same cert for sign/encrypt)</label>
                 <div className="col-sm-4">
-                    <textarea type="text" className="form-control" id="certificate" placeholder="Certificate" onChange={(e)=>{handleCert(e)}}/>
+                    <textarea ref={input} type="text" className="form-control" id="certificate" placeholder="Certificate" onChange={(e)=>{handleCert(e)}}/>
                 </div>
             </div>
             <br/>
@@ -213,7 +215,7 @@ const BuildMetadata = ()=> {
             <div className="form-group">
                 <label for="inputType" className="col-sm-2 control-label">Organisation Name</label>
                 <div className="col-sm-4">
-                    <input type="text" className="form-control" id="input" placeholder="Organisation Name" onChange={(e)=>{handleOrganization(e)}}/>
+                    <input ref={input} type="text" className="form-control" id="input" placeholder="Organisation Name" onChange={(e)=>{handleOrganization(e)}}/>
                 </div>
             </div>
             <br/>
@@ -221,7 +223,7 @@ const BuildMetadata = ()=> {
             <div className="form-group">
                 <label for="inputType" className="col-sm-2 control-label">Organisation Display Name</label>
                 <div className="col-sm-4">
-                    <input type="text" className="form-control" id="input" placeholder="organisation display name" onChange={(e)=>{handleOrganizationDisplayName(e)}}/>
+                    <input ref={input} type="text" className="form-control" id="input" placeholder="organisation display name" onChange={(e)=>{handleOrganizationDisplayName(e)}}/>
                 </div>
             </div>
             <br/>
@@ -229,7 +231,7 @@ const BuildMetadata = ()=> {
             <div className="form-group">
                 <label for="inputType" className="col-sm-2 control-label">Organisation Url</label>
                 <div className="col-sm-4">
-                    <input type="text" className="form-control" id="input" placeholder="organisation url" onChange={(e)=>{handleOrganizationUrl(e)}}/>
+                    <input ref={input} type="text" className="form-control" id="input" placeholder="organisation url" onChange={(e)=>{handleOrganizationUrl(e)}}/>
                 </div>
             </div>
             <br/>
@@ -240,7 +242,7 @@ const BuildMetadata = ()=> {
             <div className="form-group">
                 <label for="inputType" className="col-sm-2 control-label">Given Name</label>
                 <div className="col-sm-4">
-                    <input type="text" className="form-control" id="input" placeholder="Name" onChange={(e)=>{handleTecnicalContactName(e)}}/>
+                    <input ref={input} type="text" className="form-control" id="input" placeholder="Name" onChange={(e)=>{handleTecnicalContactName(e)}}/>
                 </div>
             </div>
             <br/>
@@ -248,7 +250,7 @@ const BuildMetadata = ()=> {
             <div className="form-group">
                 <label for="inputType" className="col-sm-2 control-label">Email</label>
                 <div className="col-sm-4">
-                    <input type="text" className="form-control" id="input" placeholder="Email" onChange={(e)=>{handleTecnicalEmail  (e)}}/>
+                    <input ref={input} type="text" className="form-control" id="input" placeholder="Email" onChange={(e)=>{handleTecnicalEmail  (e)}}/>
                 </div>
             </div>
             <br/>
@@ -259,7 +261,7 @@ const BuildMetadata = ()=> {
             <div className="form-group">
                 <label for="inputType" className="col-sm-2 control-label">Given Name</label>
                 <div className="col-sm-4">
-                    <input type="text" className="form-control" id="input" placeholder="Support Name" onChange={(e)=>{handleSupportName(e)}}/>
+                    <input ref={input} type="text" className="form-control" id="input" placeholder="Support Name" onChange={(e)=>{handleSupportName(e)}}/>
                 </div>
             </div>
             <br/>
@@ -267,7 +269,7 @@ const BuildMetadata = ()=> {
             <div className="form-group">
                 <label for="inputType" className="col-sm-2 control-label">Email</label>
                 <div className="col-sm-4">
-                    <input type="text" className="form-control" id="input" placeholder="Email" onChange={(e)=>{handleSupportEmail(e)}}/>
+                    <input ref={input} type="text" className="form-control" id="input" placeholder="Email" onChange={(e)=>{handleSupportEmail(e)}}/>
                 </div>
             </div>
             <br/>
