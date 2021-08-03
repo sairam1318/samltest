@@ -10,10 +10,10 @@
 }
 .components {
     width: 80%;
-    height: 96vh;
     float: right;
     margin-top: 2%;
     overflow-x: hidden;
+    overflow-y: hidden;
     
 }
 li {
