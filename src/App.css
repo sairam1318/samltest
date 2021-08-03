@@ -12,3 +12,8 @@ legend {
     display: flex;  
     flex-wrap: wrap;
 }
+#certificate-text-area {
+    width: 500px;
+    height: 300px;
+    resize: none;
+}

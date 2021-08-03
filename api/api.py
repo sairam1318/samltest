@@ -106,13 +106,13 @@ def format_certificate():
         counter = 0
         certificate_length = len(certificate_with_no_newline_tag)
         header = "-----BEGIN CERTIFICATE-----\n"
-        footer= "-----END CERTIFICATE-----"
+        footer= "\n-----END CERTIFICATE-----"
         formatted_certificate = ""
         while (counter <= certificate_length):
             formatted_certificate = formatted_certificate + certificate_with_no_newline_tag[counter: counter + 64] + "\n"
             counter = counter + 64
 
-        certificate_with_header = header + formatted_certificate + '\n' + footer
+        certificate_with_header = header + formatted_certificate + footer
         if(certificate_length <= 2):
             certificate_with_header = None 
         
