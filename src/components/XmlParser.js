@@ -49,7 +49,7 @@ const XmlParser = () => {
 
   return (
     <form>
-      <div id="xml-parser" className="form-group">
+      <div id="xml-parser" className="form-group col-sm-12">
         <div>
           <label>Upload File</label>
           <input
@@ -61,18 +61,25 @@ const XmlParser = () => {
             accept="xml"
           />
           <br />
+      
           <legend>(OR)</legend>
-          <p>
-            PASTE URL HERE:{" "}
-            <input
-              id="url"
-              className="form-control"
-              onChange={(e) => {
-                handleUrl(e);
-              }}
-            ></input>
-          </p>
-          <div>
+          <div className="col-sm-4">
+            <p>
+              PASTE URL HERE:{" "}
+              <input
+                id="url"
+                className="form-control"
+                onChange={(e) => {
+                  handleUrl(e);
+                }}
+              />
+            </p>
+          </div>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <div className="col-sm-4">
             <button
               className="btn btn-primary"
               onClick={(e) => {

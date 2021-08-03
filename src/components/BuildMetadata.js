@@ -144,9 +144,9 @@ const BuildMetadata = ()=> {
         ;
     }
     return (<div className="container">
-        <form classNameName="form-horizontal">
+        <form classNameName="form-group">
             <div classNameName="form-group">
-                <label for="inputType" className="col-sm-2 control-label">Entity Id (*)</label>
+                <label for="Entity Id" className="col-sm-2 control-label">Entity Id </label>
                 <div className="col-sm-4">
                     <input type="text" className="form-control" id="input" placeholder="Entity Id" onChange={(e)=>{handleEntityId(e)}} required />
                 </div>
@@ -172,7 +172,7 @@ const BuildMetadata = ()=> {
             <div className="form-group">
                 <label for="inputType" className="col-sm-2 control-label">SP X.509 cert (same cert for sign/encrypt)</label>
                 <div className="col-sm-4">
-                    <input type="text" className="form-control" id="input" placeholder="Certificate" onChange={(e)=>{handleCert(e)}}/>
+                    <textarea type="text" className="form-control" id="certificate" placeholder="Certificate" onChange={(e)=>{handleCert(e)}}/>
                 </div>
             </div>
             <br/>
@@ -202,9 +202,12 @@ const BuildMetadata = ()=> {
                 </div>
             </div>
             <br/>
-            <br/> 
+            <br/>
+            <label for="organisation info" className="col-sm-4">ORGANISATION INFO(optional)</label> 
+            <br/>
+            <br/>
             <div className="form-group">
-                <label for="inputType" className="col-sm-2 control-label">ORGANIZATION NAME</label>
+                <label for="inputType" className="col-sm-2 control-label">Organisation Name</label>
                 <div className="col-sm-4">
                     <input type="text" className="form-control" id="input" placeholder="Organisation Name" onChange={(e)=>{handleOrganization(e)}}/>
                 </div>
@@ -212,7 +215,7 @@ const BuildMetadata = ()=> {
             <br/>
             <br/> 
             <div className="form-group">
-                <label for="inputType" className="col-sm-2 control-label">ORGANIZATION DISPLAY NAME</label>
+                <label for="inputType" className="col-sm-2 control-label">Organisation Display Name</label>
                 <div className="col-sm-4">
                     <input type="text" className="form-control" id="input" placeholder="organisation display name" onChange={(e)=>{handleOrganizationDisplayName(e)}}/>
                 </div>
@@ -220,18 +223,18 @@ const BuildMetadata = ()=> {
             <br/>
             <br/> 
             <div className="form-group">
-                <label for="inputType" className="col-sm-2 control-label">ORGANIZATION URL</label>
+                <label for="inputType" className="col-sm-2 control-label">Organisation Url</label>
                 <div className="col-sm-4">
                     <input type="text" className="form-control" id="input" placeholder="organisation url" onChange={(e)=>{handleOrganizationUrl(e)}}/>
                 </div>
             </div>
             <br/>
             <br/> 
-            <div className="col-sm-2 control-label">Tecnical Contact</div>
+            <label className="col-sm-4 control-label">TECHNICAL CONTACT(optional)</label>
             <br/>
             <br/>
             <div className="form-group">
-                <label for="inputType" className="col-sm-2 control-label">GIVEN NAME</label>
+                <label for="inputType" className="col-sm-2 control-label">Given Name</label>
                 <div className="col-sm-4">
                     <input type="text" className="form-control" id="input" placeholder="Name" onChange={(e)=>{handleTecnicalContactName(e)}}/>
                 </div>
@@ -246,11 +249,11 @@ const BuildMetadata = ()=> {
             </div>
             <br/>
             <br/>
-            <div className="col-sm-2 control-label">Support Contact</div>
+            <label className="col-sm-4 control-label">SUPPORT CONTACT(optional)</label>
             <br/>
             <br/>
             <div className="form-group">
-                <label for="inputType" className="col-sm-2 control-label">Contact</label>
+                <label for="inputType" className="col-sm-2 control-label">Given Name</label>
                 <div className="col-sm-4">
                     <input type="text" className="form-control" id="input" placeholder="Support Name" onChange={(e)=>{handleSupportName(e)}}/>
                 </div>
@@ -265,7 +268,9 @@ const BuildMetadata = ()=> {
             </div>
             <br/>
             <br/>
-            <button onClick={(e)=>{generateMetadata(e)}}>Build IDP Metadata</button>
+            <div className="col-sm-6">
+            <button className="btn btn-success" onClick={(e)=>{generateMetadata(e)}}>Build IDP Metadata</button>
+            </div>
         </form>
                        
         <div>

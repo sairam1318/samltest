@@ -41,7 +41,8 @@ const UploadMetadata = ()=> {
         <label>Select a metadata file from disk that you would like to upload directly.</label>
         <input type="file" name="file" onChange ={(e)=>{handleFile(e)}} ></input>
         <br/>
-        <button className="btn btn-primary" onClick={(e)=>{handleSubmission(e)}}>Fetch</button>
+        <button className="btn btn-success" onClick={(e)=>{handleSubmission(e)}}>Fetch</button>
+    
         <div>
             {xml !== undefined ?<div className="wrap-xml"> Metadata uploaded successfully. <br/> Here is the copy of it <br/> <XMLViewer  xml={xml.data}/> 
             </div> : null }
